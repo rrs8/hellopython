@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM python:3.8.0-slim
 
 RUN apt update && apt upgrade && apt install -y python3
 RUN apt remove -y libsqlite3-0
