@@ -1,7 +1,6 @@
 FROM python:3.8.0-slim
 
-RUN apt update && apt upgrade && apt install -y python3
-RUN apt remove -y libsqlite3-0
+RUN apt update && apt upgrade -y
 
 WORKDIR /app
 
