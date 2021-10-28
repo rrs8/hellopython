@@ -8,6 +8,8 @@ jobs:
     steps:
     - name: Checkout the code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
     - name: Build the Docker image
       run: ls; docker build . --tag sysdiglabs/github-actions-example:latest
     - name: Scan image
