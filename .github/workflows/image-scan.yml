@@ -9,7 +9,9 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --tag sysdiglabs/github-actions-example:latest
+      run: 
+       cd githubactions
+       docker build . --tag sysdiglabs/github-actions-example:latest
     - name: Scan image
       uses: sysdiglabs/scan-action@v1
       with:
