@@ -13,7 +13,7 @@ jobs:
     - name: Build the Docker image
       run: ls; docker build . --tag sysdiglabs/github-actions-example:latest
     - name: Scan image
-      uses: sysdiglabs/scan-action@v2
+      uses: sysdiglabs/scan-action@v1
       with:
         image-tag: "sysdiglabs/github-actions-example:latest"
         sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
