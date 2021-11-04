@@ -1,4 +1,6 @@
-FROM python:3.8.0-slim
+FROM ubuntu:20.04
+
+RUN apt update && apt upgrade && apt install -y python3
 
 WORKDIR /app
 
