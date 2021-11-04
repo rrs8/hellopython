@@ -1,3 +1,9 @@
-FROM nginx
+FROM python:3.8.0-slim
 
-COPY index.html /usr/share/nginx/html/index.html
+RUN apt update && apt upgrade -y
+￼
+WORKDIR /app
+￼
+COPY app.py /app
+￼
+CMD ["/app/app.py"]
