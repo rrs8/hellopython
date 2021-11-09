@@ -17,6 +17,7 @@ jobs:
       uses: sysdiglabs/scan-action@v3
       with:
         image-tag: "sysdiglabs/github-actions-example:latest"
+        sysdig-secure-url: https://us2.app.sysdig.com/
         sysdig-secure-token: ${{ secrets.SYSDIG_SECURE_TOKEN }}
         input-type: docker-daemon
         run-as-user: root
