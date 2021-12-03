@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: sysdig-pipeline-
+spec:
+  pipelineRef:
+    name: sysdig-pipeline
+  workspaces:
+    - name: myworkspace
+      persistentVolumeClaim:
+        claimName: config-artifact-pvc

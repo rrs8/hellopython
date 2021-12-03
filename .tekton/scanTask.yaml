@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: sysdig-scan
+spec:
+  params:
+    - name: IMAGE
+  workspaces:
+    - name: source
+  steps:
+    - name: scan
+      image: quay.io/sysdig/secure-inline-scan:2
+      workingDir: $(workspaces.source.path)
+      args:
+        - -s
+        - https://secure.sysdig.com
+        - --storage-type 
+        - cri-o
+        - $(params.IMAGE)
+      env:
+        - name: SYSDIG_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sysdig-secrets
+              key: sysdig-secure-api-token
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+      securityContext:
+        privileged: true
+  volumes:
+    - name: varlibcontainers
+      emptyDir: {}

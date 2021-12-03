@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: allin-pipeline
+spec:
+  workspaces:
+    - name: myworkspace
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: myworkspace
+      params:
+        - name: url
+          value: https://github.com/rrs8/hellopython
+        - name: deleteExisting
+          value: "true"
+    - name: allinone
+      taskRef:
+        name: buildscanpush
+      runAfter:
+        - fetch-repository
+      params:
+        - name: IMAGE
+          value: docker.io/schofr/hellopython:1.2
+        - name: IMAGE_PUSH_SECRET_NAME
+          value: image-push-secrets
+      workspaces:
+        - name: source
+          workspace: myworkspace
