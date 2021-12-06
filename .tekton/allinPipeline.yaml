@@ -24,7 +24,7 @@ spec:
         - fetch-repository
       params:
         - name: IMAGE
-          value: docker.io/schofr/hellopython:1.3
+          value: docker.io/schofr/hellopython:1.4
         - name: IMAGE_PUSH_SECRET_NAME
           value: image-push-secrets
       workspaces:

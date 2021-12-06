@@ -21,7 +21,7 @@ spec:
     - name: source
   steps:
     - name: build
-      image: quay.io/buildah/stable:v1.17.0
+      image: quay.io/buildah/stable:v1.23.1
       workingDir: $(workspaces.source.path)
       script: |
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
@@ -54,7 +54,7 @@ spec:
         privileged: true
         runAsUser: 0
     - name: push
-      image: quay.io/buildah/stable:v1.17.0
+      image: quay.io/buildah/stable:v1.23.1
       workingDir: $(workspaces.source.path)
       script: |
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
