@@ -8,7 +8,7 @@ spec:
       description: Reference of the image buildah will produce.
     - name: STORAGE_DRIVER
       description: Set buildah storage driver
-      default: vfs
+      default: overlay
     - name: DOCKERFILE
       description: Path to the Dockerfile to build.
       default: ./Dockerfile
@@ -31,11 +31,11 @@ spec:
           mountPath: /var/lib/containers
       securityContext:
         runAsUser: 0
+        privileged: true
     - name: scan
       image: quay.io/sysdig/secure-inline-scan:2
       workingDir: $(workspaces.source.path)
       args:
-        - -v
         - -s
         - https://us2.app.sysdig.com
         - --storage-type 
@@ -64,6 +64,7 @@ spec:
           mountPath: /var/lib/containers
       securityContext:
         runAsUser: 0
+        privileged: true
       env:
         - name: USERNAME
           valueFrom:
