@@ -6,6 +6,5 @@ RUN apt remove -y libsqlite3-0
 WORKDIR /app
 
 COPY app.py /app
-COPY secretfile /etc/secretfile
 
 CMD ["/app/app.py"]
