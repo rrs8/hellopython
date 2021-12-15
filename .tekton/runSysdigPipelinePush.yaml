@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: sysdig-pipeline-push-
+spec:
+  pipelineRef:
+    name: sysdig-pipeline-push
+  serviceAccountName: 'sysdig-sa'
+  workspaces:
+    - name: myworkspace
+      persistentVolumeClaim:
+        claimName: config-artifact-pvc
