@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: sysdig-pipeline-scan
+spec:
+  tasks:
+    - name: sysdigscan
+      taskRef:
+        name: sysdigscan
+      params:
+        - name: IMAGE
+          value: image-registry.openshift-image-registry.svc:5000/myapp/hellopython-git
+

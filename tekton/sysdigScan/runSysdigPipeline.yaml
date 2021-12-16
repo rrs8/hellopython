@@ -1,0 +1,7 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: sysdig-pipeline-scan-
+spec:
+  pipelineRef:
+    name: sysdig-pipeline-scan
