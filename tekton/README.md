@@ -26,7 +26,7 @@ sysdigPipeline.sh, runSysdigPipeline.sh
  - a basic tekton pipeline to scan the image specified in sysdigPipeline.sh
  - same prerequisites as above
  - load pipeline: oc apply -f sysdigScanTask.yaml -f sysdigPipeline.yaml
- - run pipeline: oc create -f runSysdigPipeline.sh
+ - run pipeline: oc create -f runSysdigPipeline.yaml
 
 .work
  - working files for other pipelines, retained for reference or future use
