@@ -11,8 +11,8 @@ spec:
       image: quay.io/sysdig/secure-inline-scan:2
       args:
         - --registry-skip-tls
-        - --registry-auth-basic 
-        - serviceaccount:eyJhbGciOiJSUzI1NiIsImtpZCI6Ilh6QTZqOHgyX3M1a2xZbGxHMV9lV1RZT0ZkQW1HdU9FRDg4UTZFZnUxTTgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJteWFwcCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJwaXBlbGluZS10b2tlbi14Z3FucCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJwaXBlbGluZSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImFhYzM5MWY3LTAwNzYtNDEzNC1hODE0LTQyOTc2NTc5M2U0YyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpteWFwcDpwaXBlbGluZSJ9.Mm-07o7dKSTKKPSWQNRVBH6grcIGohLyzahnG-8b7l7gDKJ0wGTmvCEituskFQp7epBHwZLN5EOjzsr89nv95T0GM0RSY_Ttny2PumFi-teI3V17wKS48SD9oSBc4ACLXnGcydZNGepVckzj8uQ0qcn2wZX89UGGFn7XYqKMufxbHpLV20BSUGo4NKeKzzlTJsWWuJC2nn2Bihtpv-ymqQVSnxuaXfGNdwRey959q_t72qq89JRZKuKkvY4S3Hm7KKixctzRj_VGsjhL1qz3lZ5LOGRs7Yq-wbMDqnPvHd5KWtp1E0jkrbnR-1nKJYs16W1aZbfJ5gECYwlFklCMxA
+        - --registry-auth-file
+        - /tekton/creds/.docker/config.json
         - -s
         - https://us2.app.sysdig.com
         - $(params.IMAGE)
