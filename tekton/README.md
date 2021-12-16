@@ -3,11 +3,11 @@
 See comments in individual files for details
 
 Can be added directly to an OpenShift pipeline
-    1) oc apply -f sysdigScanTask.yaml
-    2) add Sysdig Secure API token using sysdig-secrets.sh
-    3) add the "sysdigscan" task to the openshift pipeline
-    4) there will be a red '!' on the sysdigscan task for a missing input
-    5) click on the task and set the value 'IMAGE' to the right pipeline parameter e.g. $(params.IMAGE_NAME)
+ - oc apply -f sysdigScanTask.yaml
+ - add Sysdig Secure API token using sysdig-secrets.sh
+ - add the "sysdigscan" task to the openshift pipeline
+ - there will be a red '!' on the sysdigscan task for a missing input
+ - click on the task and set the value 'IMAGE' to the right pipeline parameter e.g. $(params.IMAGE_NAME)
    
 sysdigScanTask.yaml
  - the actual tekton task to run the Sysdig Scanner
