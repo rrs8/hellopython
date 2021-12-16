@@ -1,3 +1,7 @@
+#
+# Standalone Sysdig pipeline run
+# See README.md for more details
+#
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:

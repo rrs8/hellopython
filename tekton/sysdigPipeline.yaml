@@ -1,3 +1,8 @@
+#
+# Standalone pipeline to run Sysdig Scan Task 
+# See README.md for prerequisites
+# Edit IMAGE param to define image to scan
+#
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
