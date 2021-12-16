@@ -22,8 +22,7 @@ sysdig-secrets.sh
 registry-secrets.sh
  - only needed if using an external registry (not the openshift local registry) that requires docker credentials
 
-sysdigPipeline.sh
-runSysdigPipeline.sh
+sysdigPipeline.sh, runSysdigPipeline.sh
  - a basic tekton pipeline to scan the image specified in sysdigPipeline.sh
  - same prerequisites as above
 
