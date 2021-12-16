@@ -1,3 +1,13 @@
+#
+# Sysdig Image Scan tekton task
+# 
+# Can be added directly to an OpenShift pipeline after installation steps below:
+#    1) oc apply -f <this file>
+#    2) add Sysdig Secure API token using sysdig-secrets.sh
+#    3) add the "sysdigscan" task to the openshift pipeline
+#    4) there will be a red '!' on the sysdigscan task for a missing input
+#    5) click on the task and set the value 'IMAGE' to the right pipeline parameter e.g. $(params.IMAGE_NAME)
+#    
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
