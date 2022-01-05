@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: hellopython-pr-1
+  labels:
+    app.kubernetes.io/instance: hellopython
+    pipeline.openshift.io/runtime: python
+    pipeline.openshift.io/type: kubernetes
+    tekton.dev/pipeline: hellopython
+spec:
+  params:
+    - name: APP_NAME
+      value: hellopython
+    - name: GIT_REPO
+      value: 'https://github.com/rrs8/hellopython.git'
+    - name: GIT_REVISION
+      value: master
+    - name: IMAGE_NAME
+      value: 'image-registry.openshift-image-registry.svc:5000/mytest/hellopython'
+    - name: PATH_CONTEXT
+      value: .
+    - name: VERSION
+      value: 3.8-ubi8
+  pipelineRef:
+    name: hellopython
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: workspace
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+          labels:
+            tekton.dev/pipeline: hellopython
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
