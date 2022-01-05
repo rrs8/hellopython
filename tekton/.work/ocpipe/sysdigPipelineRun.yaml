@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: hellopython-pr-1
+  generateName: hellopython-pr-
   labels:
     app.kubernetes.io/instance: hellopython
     pipeline.openshift.io/runtime: python
