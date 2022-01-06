@@ -1,8 +1,12 @@
-FROM registry.access.redhat.com/ubi8/python-38
-USER 0
+FROM ubuntu:20.04
+
+RUN apt -y update && apt -y upgrade && apt install -y python3
+RUN apt remove -y libsqlite3-0
+
 EXPOSE 22
-ADD app.py /tmp/src
-RUN /usr/bin/fix-permissions /tmp/src
-USER 1001
-RUN /usr/libexec/s2i/assemble
-CMD /usr/libexec/s2i/run
+ 
+WORKDIR /app
+
+COPY app.py /app
+
+CMD ["/app/app.py"]
