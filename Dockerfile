@@ -1,8 +1,8 @@
-FROM registry.access.redhat.com/ubi8/python-39
+FROM registry.access.redhat.com/ubi8/python-38
 USER 0
 EXPOSE 22
-WORKDIR /app
-COPY app.py /app
-RUN chown -R 1001:0 /app
+ADD app.py /tmp/src
+RUN /usr/bin/fix-permissions /tmp/src
 USER 1001
-CMD ["/app/app.py"]
+RUN /usr/libexec/s2i/assemble
+CMD /usr/libexec/s2i/run
