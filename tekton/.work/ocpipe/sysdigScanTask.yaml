@@ -29,8 +29,8 @@ spec:
               name: sysdig-secrets
               key: sysdig-secure-api-token
         - name: http_proxy
-          value: "http://34.238.40.19:3128"
+          value: "http://35.175.244.217:3128"
         - name: https_proxy
-          value: "http://34.238.40.19:3128"
+          value: "http://35.175.244.217:3128"
         - name: no_proxy
           value: "image-registry.openshift-image-registry.svc"
