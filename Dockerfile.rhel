@@ -1,9 +1,0 @@
-FROM registry.access.redhat.com/ubi8/python-38
-USER 0
-ADD app.py /tmp/src
-RUN /usr/bin/fix-permissions /tmp/src
-RUN yum install -y 
-EXPOSE 22
-USER 1001
-RUN /usr/libexec/s2i/assemble
-CMD /usr/libexec/s2i/run

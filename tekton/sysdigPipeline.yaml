@@ -1,18 +1,77 @@
 #
-# Standalone pipeline to run Sysdig Scan Task 
-# See README.md for prerequisites
-# Edit IMAGE param to define image to scan
+# Sysdig Tekton Pipeline - s2i
+#  - uses s2i to build an image from github
+#  - Sysdig scans the image for vulnerabilities
 #
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: sysdig-pipeline-scan
+  name: hellopython
+  labels:
+    app.kubernetes.io/instance: hellopython
+    pipeline.openshift.io/runtime: python
+    pipeline.openshift.io/type: kubernetes
 spec:
+  params:
+    - default: hellopython
+      name: APP_NAME
+      type: string
+    - default: https://github.com/rrs8/hellopython.git
+      name: GIT_REPO
+      type: string
+    - default: main
+      name: GIT_REVISION
+      type: string
+    - default: image-registry.openshift-image-registry.svc:5000/hello/hellopython
+      name: IMAGE_NAME
+      type: string
+    - default: .
+      name: PATH_CONTEXT
+      type: string
+    - default: 3.8-ubi8
+      name: VERSION
+      type: string
   tasks:
-    - name: sysdigscan
+    - name: fetch-repository
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: deleteExisting
+          value: 'true'
       taskRef:
-        name: sysdigscan
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: build
       params:
         - name: IMAGE
-          value: image-registry.openshift-image-registry.svc:5000/myapp/hellopython-git
-
+          value: $(params.IMAGE_NAME)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: PATH_CONTEXT
+          value: $(params.PATH_CONTEXT)
+        - name: VERSION
+          value: $(params.VERSION)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: ClusterTask
+        name: s2i-python
+      workspaces:
+        - name: source
+          workspace: workspace
+    - name: sysdigscan
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE_NAME)
+      runAfter:
+        - build
+      taskRef:
+        kind: Task
+        name: sysdigscan
+  workspaces:
+    - name: workspace

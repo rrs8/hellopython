@@ -9,18 +9,18 @@ metadata:
     tekton.dev/pipeline: hellopython
 spec:
   params:
-    - name: APP_NAME
-      value: hellopython
-    - name: GIT_REPO
-      value: 'https://github.com/rrs8/hellopython.git'
-    - name: GIT_REVISION
-      value: master
-    - name: IMAGE_NAME
-      value: 'image-registry.openshift-image-registry.svc:5000/mytest/hellopython'
-    - name: PATH_CONTEXT
-      value: .
-    - name: VERSION
-      value: 3.8-ubi8
+  - name: APP_NAME
+    value: hellopython
+  - name: GIT_REPO
+    value: https://github.com/rrs8/hellopython.git
+  - name: GIT_REVISION
+    value: main
+  - name: IMAGE_NAME
+    value: image-registry.openshift-image-registry.svc:5000/mytest/hellopython
+  - name: PATH_CONTEXT
+    value: .
+  - name: VERSION
+    value: 3.8-ubi8
   pipelineRef:
     name: hellopython
   serviceAccountName: pipeline
@@ -29,7 +29,6 @@ spec:
     - name: workspace
       volumeClaimTemplate:
         metadata:
-          creationTimestamp: null
           labels:
             tekton.dev/pipeline: hellopython
         spec:
