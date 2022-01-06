@@ -19,7 +19,7 @@ spec:
     - default: 'https://github.com/rrs8/hellopython.git'
       name: GIT_REPO
       type: string
-    - default: master
+    - default: main
       name: GIT_REVISION
       type: string
     - default: 'image-registry.openshift-image-registry.svc:5000/hello/hellopython'
