@@ -1,32 +1,40 @@
-# Tekton for Sysdig Secure
+## Sysdig Secure Image Scanning for Tekton / OpenShift Pipelines
 
-See comments in individual files for details
+Task and Pipeline definitions in this directory perform a Dockerfile build using the buildah task.
 
-Can be added directly to an OpenShift pipeline
- - oc apply -f sysdigScanTask.yaml
- - add Sysdig Secure API token using sysdig-secrets.sh
- - add the "sysdigscan" task to the openshift pipeline
- - there will be a red '!' on the sysdigscan task for a missing input
- - click on the task and set the value 'IMAGE' to the right pipeline parameter e.g. $(params.IMAGE_NAME)
-   
-sysdigScanTask.yaml
- - the actual tekton task to run the Sysdig Scanner
- - proxy settings and API token are for sending results to the Sysdig Secure backend
- - edit the proxy environment variables as needed, or remove them if no proxy
- - the no_proxy line must exclude any internal registry that does not go through proxy
- - for internal openshift registry, tekton supplies the docker credentials via /tekton/creds
+See parent directory for a s2i build.
 
-sysdig-secrets.sh
- - required: sets the Sysdig API token so scan results can be sent to Sysdig
+The only difference is the build task used in the Pipeline.
 
-registry-secrets.sh
- - only needed if using an external registry (not the openshift local registry) that requires docker credentials
+### Preparation
+1. Get Sysdig API token from the Sysdig UI
+   * This is available in the Sysdig UI under Settings / User Profile / Sysdig Secure API
+   * API token must be base64 encoded:
+   `echo -n SYSDIG_API_TOKEN | base64`
+   * Edit sysdigSecureSecret.yaml to include base64 encoded token
 
-sysdigPipeline.sh, runSysdigPipeline.sh
- - a basic tekton pipeline to scan the image specified in sysdigPipeline.sh
- - same prerequisites as above
- - load pipeline: oc apply -f sysdigScanTask.yaml -f sysdigPipeline.yaml
- - run pipeline: oc create -f runSysdigPipeline.yaml
+2. Configure or disable proxy server
+   * Edit sysdigScanTask.yaml
+   * Replace http_proxy and https_proxy values
+   * If no proxy, remove these lines
 
-.work
- - working files for other pipelines, retained for reference or future use
+3. Specify the OpenShift project name in the image repo string
+   * Edit sysdigPipelineRunDockerfile.yaml and modify the IMAGE_NAME parameter:
+   ```
+   name: IMAGE_NAME
+   value: image-registry.openshift-image-registry.svc:5000/hello/hellopython
+   ```
+   * Replace hello with your project name
+
+### Setup
+Example using the default project hello:
+```
+oc new-project hello
+oc apply -f sysdigSecureSecret.yaml
+oc apply -f sysdigScanTask.yaml
+oc apply -f sysdigPipelineDockerfile.yaml
+```
+### Run Pipeline
+```
+oc create -f sysdigPipelineRunDockerfile.yaml
+```

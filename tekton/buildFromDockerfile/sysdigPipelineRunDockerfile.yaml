@@ -1,12 +1,12 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: hellopython-pr-
+  generateName: hellopython-dockerfile-pr-
   labels:
-    app.kubernetes.io/instance: hellopython
+    app.kubernetes.io/instance: hellopython-dockerfile
     pipeline.openshift.io/runtime: python
     pipeline.openshift.io/type: kubernetes
-    tekton.dev/pipeline: hellopython
+    tekton.dev/pipeline: hellopython-dockerfile
 spec:
   params:
   - name: APP_NAME
@@ -22,7 +22,7 @@ spec:
   - name: VERSION
     value: 3.8-ubi8
   pipelineRef:
-    name: hellopython
+    name: hellopython-dockerfile
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:
@@ -30,7 +30,7 @@ spec:
       volumeClaimTemplate:
         metadata:
           labels:
-            tekton.dev/pipeline: hellopython
+            tekton.dev/pipeline: hellopython-dockerfile
         spec:
           accessModes:
             - ReadWriteOnce

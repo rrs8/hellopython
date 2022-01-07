@@ -35,4 +35,6 @@ oc apply -f sysdigScanTask.yaml
 oc apply -f sysdigSecurePipeline.yaml
 ```
 ### Run Pipeline
-    oc create -f sysdigPipelineRun.yaml
+```
+oc create -f sysdigPipelineRun.yaml
+```

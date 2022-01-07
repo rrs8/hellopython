@@ -6,9 +6,9 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: hellopython
+  name: hellopython-dockerfile
   labels:
-    app.kubernetes.io/instance: hellopython
+    app.kubernetes.io/instance: hellopython-dockerfile
     pipeline.openshift.io/runtime: python
     pipeline.openshift.io/type: kubernetes
 spec:
