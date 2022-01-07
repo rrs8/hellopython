@@ -1,32 +1,32 @@
-# Tekton for Sysdig Secure
+# Sysdig Secure Image Scanning for Tekton / OpenShift Pipelines
 
-See comments in individual files for details
+Task and Pipeline definitions in this directory perform an S2I build.
 
-Can be added directly to an OpenShift pipeline
- - oc apply -f sysdigScanTask.yaml
- - add Sysdig Secure API token using sysdig-secrets.sh
- - add the "sysdigscan" task to the openshift pipeline
- - there will be a red '!' on the sysdigscan task for a missing input
- - click on the task and set the value 'IMAGE' to the right pipeline parameter e.g. $(params.IMAGE_NAME)
+See subdirectory "buildFromDockerfile" for a Dockerfile build.
+
+The only difference is the build task used in the Pipeline.
+
+## Preparation
+ - Get Sysdig API token from the Sysdig UI
    
-sysdigScanTask.yaml
- - the actual tekton task to run the Sysdig Scanner
- - proxy settings and API token are for sending results to the Sysdig Secure backend
- - edit the proxy environment variables as needed, or remove them if no proxy
- - the no_proxy line must exclude any internal registry that does not go through proxy
- - for internal openshift registry, tekton supplies the docker credentials via /tekton/creds
+   This is available in the Sysdig UI under Settings (select the circle with your initials in lower right)
+   in the first settings screen (User Profile) in the section Sysdig Secure API
 
-sysdig-secrets.sh
- - required: sets the Sysdig API token so scan results can be sent to Sysdig
+ - Edit sysdigSecureSecret.yaml to include base64 encoded Sysdig token
+   - 
+ - Edit sysdigScanTask.yaml to add your proxy server URL (or remove these lines)
+   - 
+ - Edit sysdigPipelineRun.yaml to specify the OpenShift project name in the image URL
+   - 
+   - default is "hello"
+ 
 
-registry-secrets.sh
- - only needed if using an external registry (not the openshift local registry) that requires docker credentials
+Setup:
+ - oc new-project hello
+ - oc apply -f sysdigSecureSecret.yaml
+ - oc apply -f sysdigScanTask.yaml
+ - oc apply -f sysdigSecurePipeline.yaml
 
-sysdigPipeline.sh, runSysdigPipeline.sh
- - a basic tekton pipeline to scan the image specified in sysdigPipeline.sh
- - same prerequisites as above
- - load pipeline: oc apply -f sysdigScanTask.yaml -f sysdigPipeline.yaml
- - run pipeline: oc create -f runSysdigPipeline.yaml
+Run Pipeline
+ - oc create -f sysdigPipelineRun.yaml
 
-.work
- - working files for other pipelines, retained for reference or future use

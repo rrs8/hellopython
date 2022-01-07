@@ -16,7 +16,7 @@ spec:
   - name: GIT_REVISION
     value: main
   - name: IMAGE_NAME
-    value: image-registry.openshift-image-registry.svc:5000/mytest/hellopython
+    value: image-registry.openshift-image-registry.svc:5000/hello/hellopython
   - name: PATH_CONTEXT
     value: .
   - name: VERSION
