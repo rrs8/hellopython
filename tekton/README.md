@@ -32,7 +32,7 @@ Example using the default project hello:
 oc new-project hello
 oc apply -f sysdigSecureSecret.yaml
 oc apply -f sysdigScanTask.yaml
-oc apply -f sysdigSecurePipeline.yaml
+oc apply -f sysdigPipeline.yaml
 ```
 ### Run Pipeline
 ```
