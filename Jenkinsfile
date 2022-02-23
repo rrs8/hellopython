@@ -19,12 +19,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "podman save -o ${HOME}image.tar ${params.image_to_scan}"
+                sh "podman save -o ${HOME}/image.tar ${params.image_to_scan}"
             }
         }
         stage('Scan') {
             steps {
-                sh "podman run -v ${HOME}image.tar:/tmp/image.tar:Z quay.io/sysdig/secure-inline-scan:2 --sysdig-url https://us2.app.sysdig.com --sysdig-token ${SYDIG_TOKEN} --storage-type docker-archive --storage-path /tmp/image.tar quay.io/sysdig/secure-inline-scan:2 ${params.image_to_scan}"
+                sh "podman run -v ${HOME}/image.tar:/tmp/image.tar:Z quay.io/sysdig/secure-inline-scan:2 --sysdig-url https://us2.app.sysdig.com --sysdig-token ${SYDIG_TOKEN} --storage-type docker-archive --storage-path /tmp/image.tar quay.io/sysdig/secure-inline-scan:2 ${params.image_to_scan}"
             }
         }
     }
