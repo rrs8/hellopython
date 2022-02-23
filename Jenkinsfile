@@ -8,7 +8,7 @@ pipeline {
     }
     
      environment {
-         SYSDIG_TOKEN=credentials('api-token')
+         SYSDIG_TOKEN=credentials('api-credentials')
     }
 
     stages {
