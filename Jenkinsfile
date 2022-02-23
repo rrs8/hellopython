@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Scan') {
             steps {
-                sh "podman run -v ${HOME}/image.tar:/tmp/image.tar:Z quay.io/sysdig/secure-inline-scan:2 --sysdig-url https://us2.app.sysdig.com --sysdig-token ${SYSDIG_TOKEN} --storage-type docker-archive --storage-path /tmp/image.tar ${params.image_to_scan}"
+                sh "podman run -v ${HOME}/image.tar:/tmp/image.tar:Z quay.io/sysdig/secure-inline-scan:2 --sysdig-url https://us2.app.sysdig.com --sysdig-token ${SYSDIG_TOKEN_PSW} --storage-type docker-archive --storage-path /tmp/image.tar ${params.image_to_scan}"
             }
         }
     }
