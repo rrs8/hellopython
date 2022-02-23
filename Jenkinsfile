@@ -19,6 +19,7 @@ pipeline {
         }
         stage('Build') {
             steps {
+                sh "rm -f ${HOME}/image.tar"
                 sh "podman save -o ${HOME}/image.tar ${params.image_to_scan}"
             }
         }
